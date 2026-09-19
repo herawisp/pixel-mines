@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 66959797}
   - component: {fileID: 66959798}
+  - component: {fileID: 66959799}
   m_Layer: 0
   m_Name: Map Generator
   m_TagString: Untagged
@@ -170,8 +171,24 @@ MonoBehaviour:
   randomFillPercent: 60
   tilemap: {fileID: 909011684}
   tile: {fileID: 11400000, guid: a70d91df1caa93b408f1b00601929955, type: 2}
-  RockGenerationDatas:
-  - {fileID: 0}
+--- !u!114 &66959799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66959796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7805ebe6e8427cd45af1389967825c9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RockGeneration
+  Resolution: 10
+  Frequency: 5
+  Amplitude: 5
+  minNoise: 0.5
+  maxNoise: 0.6
+  tile: {fileID: 11400000, guid: a4be345fee0b2904a86891b2a49aacc0, type: 2}
 --- !u!1 &241354379
 GameObject:
   m_ObjectHideFlags: 0

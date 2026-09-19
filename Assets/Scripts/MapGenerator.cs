@@ -1,9 +1,13 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MapGenerator : MonoBehaviour
-{
+public class MapGenerator : MonoBehaviour {
+
+    //================================================================================================//
+    //================================================================================================//
+
     public int width;
     public int height;
 
@@ -19,6 +23,11 @@ public class MapGenerator : MonoBehaviour
     int[,] map;
     int[,] smoothMap;
 
+    public List<RockGenerationData> RockGenerationDatas = new();
+
+    //================================================================================================//
+    //================================================================================================//
+
     void Start() {
         GenerateMap();
     }
@@ -31,6 +40,7 @@ public class MapGenerator : MonoBehaviour
             SmoothMap();
         }
         GenerateTiles();
+        GenerateRocks();
     }
 
     void RandomFillMap() {
@@ -95,4 +105,35 @@ public class MapGenerator : MonoBehaviour
             }
         }
     }
+    
+    //================================================================================================//
+    //================================================================================================//
+
+    float GetHeight(float x, float y, float resolution, float frequency) {
+        float noiseHeight = Mathf.PerlinNoise(x / resolution * frequency, y / resolution * frequency);
+        noiseHeight = Mathf.Clamp(noiseHeight, 0, 1);
+        return noiseHeight;
+    }
+
+    void GenerateRockMap(RockGenerationData rgd) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                float noiseHeight = GetHeight(x, y, rgd.Resolution, rgd.Frequency);
+                if (noiseHeight > rgd.minNoise && noiseHeight < rgd.maxNoise) {
+                    Vector3Int position = new(x, y);
+                    tilemap.SetTile(position, rgd.tile);
+                }
+            }
+        }
+    }
+
+    public void GenerateRocks() {
+        foreach (RockGenerationData rgd in RockGenerationDatas) {
+            GenerateRockMap(rgd);
+        }
+    }
+    
+    //================================================================================================//
+    //================================================================================================//
+
 }
