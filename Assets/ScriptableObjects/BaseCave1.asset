@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CellularAutomataGenData
   RandomFillPercent: 60
   SmoothAmount: 3
-  Tile: {fileID: 11400000, guid: 45d724dbdc97ed94f994a3f59ad642e1, type: 2}
+  Tile: {fileID: 11400000, guid: b08b7c35d64ff9846aab821527d9044c, type: 2}

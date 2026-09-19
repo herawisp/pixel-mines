@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4aaf4e41a2e9a143ae944e6f0d1d074, type: 3}
   m_Name: HardRock
   m_EditorClassIdentifier: Assembly-CSharp::PerlinNoiseGenData
-  Resolution: 10
-  Frequency: 0.5
+  Resolution: 30
+  Frequency: 1
   MinNoise: 0.5
   MaxNoise: 0.6
   MinYHeight: 40

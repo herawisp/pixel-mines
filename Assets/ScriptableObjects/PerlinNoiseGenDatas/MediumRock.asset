@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4aaf4e41a2e9a143ae944e6f0d1d074, type: 3}
   m_Name: MediumRock
   m_EditorClassIdentifier: Assembly-CSharp::PerlinNoiseGenData
-  Resolution: 10
-  Frequency: 1.5
-  MinNoise: 0
-  MaxNoise: 0.3
+  Resolution: 30
+  Frequency: 4
+  MinNoise: 0.6
+  MaxNoise: 1
   MinYHeight: 0
   OverrideAir: 0
   Tile: {fileID: 11400000, guid: 97ba85ea2189f60468aa122e8b13dc31, type: 2}

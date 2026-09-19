@@ -12,10 +12,10 @@ public class PerlinNoiseMap {
         float y, 
         float resolution, 
         float frequency,
-        System.Random random
+        Vector2 offset
     ) {
-        float sampleX = (x + (float) random.NextDouble()) / resolution * frequency;
-        float sampleY = (y + (float) random.NextDouble()) / resolution * frequency;
+        float sampleX = (x + offset.x) / resolution * frequency;
+        float sampleY = (y + offset.y) / resolution * frequency;
         float noiseHeight = Mathf.PerlinNoise(sampleX, sampleY);
         return noiseHeight;
     }
@@ -27,9 +27,17 @@ public class PerlinNoiseMap {
         Tilemap tilemap,
         PerlinNoiseGenData data
     ) {
+        Vector2 offset = new(
+            random.Next(-100000,100000), 
+            random.Next(-100000,100000)
+        );
+
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height - data.MinYHeight; y++) {
-                float noiseHeight = GetHeight(x, y, data.Resolution, data.Frequency, random);
+                
+                float noiseHeight = GetHeight(x, y, data.Resolution, data.Frequency, offset);
+                Debug.Log(noiseHeight);
+
                 if (noiseHeight > data.MinNoise && noiseHeight < data.MaxNoise) {
                     Vector3Int position = new(x, y);
                     if (!data.OverrideAir && tilemap.GetTile(position) == null) continue;

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4aaf4e41a2e9a143ae944e6f0d1d074, type: 3}
-  m_Name: Cobblestone
+  m_Name: Granite
   m_EditorClassIdentifier: Assembly-CSharp::PerlinNoiseGenData
   Resolution: 30
   Frequency: 4
-  MinNoise: 0.6
+  MinNoise: 0.7
   MaxNoise: 1
   MinYHeight: 0
   OverrideAir: 0
-  Tile: {fileID: 11400000, guid: 45d724dbdc97ed94f994a3f59ad642e1, type: 2}
+  Tile: {fileID: 11400000, guid: d8be17f1554736f448883249715a1faf, type: 2}
