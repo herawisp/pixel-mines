@@ -163,15 +163,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e3db12ae55e6d4eaebe42e88621334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
-  width: 60
-  height: 80
-  seed: 
-  useRandomSeed: 1
-  randomFillPercent: 60
-  tilemap: {fileID: 909011684}
-  tile: {fileID: 11400000, guid: a70d91df1caa93b408f1b00601929955, type: 2}
+  Width: 60
+  Height: 80
+  Seed: 0
+  Tilemap: {fileID: 909011684}
+  BaseCaveData: {fileID: 11400000, guid: 0d72532592e275a4db203e299d6b574a, type: 2}
   RockGenerationDatas:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 81d7124c03356da408c30cddd1d8fc47, type: 2}
+  - {fileID: 11400000, guid: 85d5e27386149ec4f93c2f3a2f49f8e2, type: 2}
 --- !u!1 &241354379
 GameObject:
   m_ObjectHideFlags: 0
