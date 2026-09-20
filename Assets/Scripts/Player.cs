@@ -27,7 +27,6 @@ public class Player : MonoBehaviour {
     //================================================================================================//
 
     void Awake() {
-        //Time.timeScale = .07f;
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidBody = GetComponent<Rigidbody2D>();
@@ -35,7 +34,6 @@ public class Player : MonoBehaviour {
 
     void Update() {
         _isGrounded = Physics2D.OverlapCircle(GroundCheckPoint.position, 0.2f, GroundLayer);
-        // Debug.Log(_rigidBody.linearVelocityY);
         _animator.SetBool("IsGrounded", _isGrounded);
         
         if (!_isGrounded) {
@@ -54,12 +52,14 @@ public class Player : MonoBehaviour {
         _rigidBody.linearVelocity = new(_direction.x * WalkSpeed, _rigidBody.linearVelocityY);
     }
 
+    //================================================================================================//
+    //================================================================================================//
+
     void OnMove(InputValue value) {
         _direction = value.Get<Vector2>();
         if (_direction.magnitude != 0) _lastDirection = _direction;
     }
 
-    // TODO: Add a buffer? where the player can jump if seconds before grounded
     void OnJump() {
         if (!_isGrounded) return;
         _rigidBody.linearVelocity = new(_rigidBody.linearVelocityX, JumpPower);
