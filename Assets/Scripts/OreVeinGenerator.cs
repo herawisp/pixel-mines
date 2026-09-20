@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 enum OreBlockType {Block, Cluster}
 
-public class OreVeinGenerator : MonoBehaviour {
+public class OreVeinGenerator {
     
     Vector3Int GetRandomPosition(
         int width,
@@ -24,7 +24,7 @@ public class OreVeinGenerator : MonoBehaviour {
 
             position = new Vector3Int(
                 random.Next(0, width),
-                random.Next(height - data.MinYHeight, height - data.MaxYHeight),
+                random.Next(height - data.MaxYHeight, height - data.MinYHeight),
                 0
             );
         } while (!data.OverrideAir && tilemap.GetTile(position) == null);
@@ -59,10 +59,10 @@ public class OreVeinGenerator : MonoBehaviour {
         System.Random random
     ) {
         List<Vector3Int> adjacentList = new() {
-            [0] = new(-1, 0),
-            [1] = new(1, 0),
-            [2] = new(0, -1),
-            [3] = new(0, 1)
+            new Vector3Int(-1, 0, 0),
+            new Vector3Int(1, 0, 0),
+            new Vector3Int(0, -1, 0),
+            new Vector3Int(0, 1, 0)
         };
 
         int n = adjacentList.Count;
@@ -92,7 +92,7 @@ public class OreVeinGenerator : MonoBehaviour {
         }
     }
 
-    void SpawnOreVein(
+    void GenerateOreVein(
         int width,
         int height,
         Tilemap tilemap,
@@ -113,29 +113,34 @@ public class OreVeinGenerator : MonoBehaviour {
             AddNeighbourPosition(width, height, random, initialPosition, spawnPositions);
         } else return;
 
+        Debug.Log("First Block Successfull");
 
-        foreach (Vector3Int position in spawnPositions) {
+        for (int i = 0; i < spawnPositions.Count; i++) {
+            Vector3Int position = spawnPositions[i];
             randomNum = random.Next(0, 100);
 
             if (randomNum <= chance) {
                 SpawnOre(tilemap, random, position, data);
                 chance -= data.ChanceDepletionRate;
                 AddNeighbourPosition(width, height, random, position, spawnPositions);
-            } else return;
+            } else break;
         }
     }
 
-    public void SpawnOreVeins(
+    public void GenerateOreVeins(
         int width,
         int height,
-        Tilemap tilemap,
         System.Random random,
-        OreVeinGenData data       
-    )
-    {
-        int veinAmount = random.Next(data.MinVeinAmount, data.MaxVeinAmount);
-        for (int i = 0; i < veinAmount; i++) {
-            SpawnOreVein(width, height, tilemap, random, data);
+        Tilemap tilemap,
+        List<OreVeinGenData> datas
+    ) {
+        foreach (OreVeinGenData data in datas) {
+            if (data.MinYHeight > height) continue;
+
+            int veinAmount = random.Next(data.MinVeinAmount, data.MaxVeinAmount);
+            for (int i = 0; i < veinAmount; i++) {
+                GenerateOreVein(width, height, tilemap, random, data);
+            }               
         }
     }
 }

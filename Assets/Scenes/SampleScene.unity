@@ -173,6 +173,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 85d5e27386149ec4f93c2f3a2f49f8e2, type: 2}
   - {fileID: 11400000, guid: c87cf45853ca62f46bd80527d9efde76, type: 2}
   - {fileID: 11400000, guid: 81d7124c03356da408c30cddd1d8fc47, type: 2}
+  OreVeinGenDatas:
+  - {fileID: 11400000, guid: 3352a47d37e84e249ac2d0d00cd7ae90, type: 2}
 --- !u!1 &241354379
 GameObject:
   m_ObjectHideFlags: 0

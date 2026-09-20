@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cf30fe8bddfed4297131ea0d6f4bb1, type: 3}
+  m_Name: Copper Block
+  m_EditorClassIdentifier: Assembly-CSharp::OreVeinGenData
+  InitialChance: 100
+  MinVeinAmount: 10
+  MaxVeinAmount: 15
+  MinYHeight: 20
+  MaxYHeight: 60
+  ChanceDepletionRate: 10
+  OreBlockChance: 70
+  ClusterBlockChance: 30
+  OreBlockTile: {fileID: 11400000, guid: 2376347e9dad7e6429bfaa2f5f301dcf, type: 2}
+  ClusterBlockTile: {fileID: 11400000, guid: c3beddbeabd53ca4a80b14c05f1f083f, type: 2}
+  OverrideAir: 0

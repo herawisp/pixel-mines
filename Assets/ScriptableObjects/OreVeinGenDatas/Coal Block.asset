@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cf30fe8bddfed4297131ea0d6f4bb1, type: 3}
+  m_Name: Coal Block
+  m_EditorClassIdentifier: Assembly-CSharp::OreVeinGenData
+  InitialChance: 100
+  MinVeinAmount: 8
+  MaxVeinAmount: 12
+  MinYHeight: 0
+  MaxYHeight: 30
+  ChanceDepletionRate: 5
+  OreBlockChance: 70
+  ClusterBlockChance: 30
+  OreBlockTile: {fileID: 11400000, guid: f96d052ebe6c36a4d90b352e723e845d, type: 2}
+  ClusterBlockTile: {fileID: 11400000, guid: fa6aba1d65c463841b6b42cfd5b40d4e, type: 2}
+  OverrideAir: 0

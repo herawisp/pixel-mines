@@ -36,8 +36,6 @@ public class PerlinNoiseMap {
             for (int y = 0; y < height - data.MinYHeight; y++) {
                 
                 float noiseHeight = GetHeight(x, y, data.Resolution, data.Frequency, offset);
-                Debug.Log(noiseHeight);
-
                 if (noiseHeight > data.MinNoise && noiseHeight < data.MaxNoise) {
                     Vector3Int position = new(x, y);
                     if (!data.OverrideAir && tilemap.GetTile(position) == null) continue;
