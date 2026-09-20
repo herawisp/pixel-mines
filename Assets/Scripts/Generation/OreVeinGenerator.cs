@@ -113,8 +113,6 @@ public class OreVeinGenerator {
             AddNeighbourPosition(width, height, random, initialPosition, spawnPositions);
         } else return;
 
-        Debug.Log("First Block Successfull");
-
         for (int i = 0; i < spawnPositions.Count; i++) {
             Vector3Int position = spawnPositions[i];
             randomNum = random.Next(0, 100);

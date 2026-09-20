@@ -1,0 +1,70 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+
+public class Player : MonoBehaviour {
+
+    //================================================================================================//
+    //================================================================================================//
+    
+    public float WalkSpeed;
+    public float JumpPower;
+
+    public Transform GroundCheckPoint;
+    public LayerMask GroundLayer;
+
+    Vector2 _lastDirection;
+    Vector2 _direction;
+    bool _isGrounded;
+
+    Animator _animator;
+    SpriteRenderer _spriteRenderer;
+    Rigidbody2D _rigidBody;
+
+    //================================================================================================//
+    //================================================================================================//
+
+    void Awake() {
+        //Time.timeScale = .07f;
+        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _rigidBody = GetComponent<Rigidbody2D>();
+    }
+
+    void Update() {
+        _isGrounded = Physics2D.OverlapCircle(GroundCheckPoint.position, 0.2f, GroundLayer);
+        // Debug.Log(_rigidBody.linearVelocityY);
+        _animator.SetBool("IsGrounded", _isGrounded);
+        
+        if (!_isGrounded) {
+            _animator.SetBool("IsJumping", _rigidBody.linearVelocityY > 0f);
+            _animator.SetBool("IsFalling", _rigidBody.linearVelocityY < -0f);
+        } else {
+            _animator.SetBool("IsJumping", false);
+            _animator.SetBool("IsFalling", false);
+        }
+
+        _animator.SetBool("IsRunning", _direction.magnitude != 0);
+        _spriteRenderer.flipX = _lastDirection.x > 0;
+    }
+
+    void FixedUpdate() {
+        _rigidBody.linearVelocity = new(_direction.x * WalkSpeed, _rigidBody.linearVelocityY);
+    }
+
+    void OnMove(InputValue value) {
+        _direction = value.Get<Vector2>();
+        if (_direction.magnitude != 0) _lastDirection = _direction;
+    }
+
+    // TODO: Add a buffer? where the player can jump if seconds before grounded
+    void OnJump() {
+        if (!_isGrounded) return;
+        _rigidBody.linearVelocity = new(_rigidBody.linearVelocityX, JumpPower);
+    }
+    
+    //================================================================================================//
+    //================================================================================================//
+}

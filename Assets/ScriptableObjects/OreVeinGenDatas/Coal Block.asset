@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Coal Block
   m_EditorClassIdentifier: Assembly-CSharp::OreVeinGenData
   InitialChance: 100
-  MinVeinAmount: 8
-  MaxVeinAmount: 12
+  MinVeinAmount: 10
+  MaxVeinAmount: 15
   MinYHeight: 0
   MaxYHeight: 30
   ChanceDepletionRate: 5
