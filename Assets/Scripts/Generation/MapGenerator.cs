@@ -18,6 +18,7 @@ public class MapGenerator : MonoBehaviour {
     public CellularAutomataGenData BaseCaveData;
     public List<PerlinNoiseGenData> RockGenerationDatas;
     public List<OreVeinGenData> OreVeinGenDatas;
+    public DoorGenerator DoorGenerator;
 
     readonly CellularAutomata _cellularAutomata = new();
     readonly PerlinNoiseMap _perlinNoiseMap = new();
@@ -33,6 +34,7 @@ public class MapGenerator : MonoBehaviour {
         _cellularAutomata.GenerateMap(Width, Height, random, Tilemap, BaseCaveData);
         _perlinNoiseMap.GenerateMaps(Width, Height, random, Tilemap, RockGenerationDatas);
         _oreVeinGenerator.GenerateOreVeins(Width, Height, random, Tilemap, OreVeinGenDatas);
+        DoorGenerator.GenerateEntrance(Width, Height, Tilemap, random);
     }
     
     //================================================================================================//

@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
 
     public Transform GroundCheckPoint;
     public LayerMask GroundLayer;
+    public Pickaxe Pickaxe;
 
     Vector2 _lastDirection;
     Vector2 _direction;
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour {
 
         _animator.SetBool("IsRunning", _direction.magnitude != 0);
         _spriteRenderer.flipX = _lastDirection.x > 0;
+        Pickaxe.FlipX(_lastDirection.x > 0);
     }
 
     void FixedUpdate() {

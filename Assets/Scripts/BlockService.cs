@@ -15,6 +15,7 @@ public class BlockService : MonoBehaviour {
     
     public Tilemap Tilemap;
     public List<BlockData> BlockDatas;
+    public Pickaxe Pickaxe;
     
     Dictionary<Vector3Int, TileData> _tileDatas = new();
     Dictionary<TileBase, BlockData> _cachedBlockDatas = new();
@@ -28,12 +29,16 @@ public class BlockService : MonoBehaviour {
     void Update() {
         if (Mouse.current.leftButton.isPressed) {
             _timer += Time.deltaTime;
+            Pickaxe.StartSwinging();
 
             if (_timer >= _mineRepeatRate) {
                 MineBlock();
                 _timer = 0f;
             }
-        } else _timer = 0f;
+        } else {
+            Pickaxe.StopSwinging();
+            _timer = 0f;
+        }
     }
     
     //================================================================================================//
@@ -48,6 +53,8 @@ public class BlockService : MonoBehaviour {
 
     void MineBlock() {
         Vector3Int cellPosition = GetCellPositionOnMouse();
+        if (Tilemap.GetTile(cellPosition) == null) return;
+
         bool isTileDataExist = _tileDatas.ContainsKey(cellPosition);
         TileData tileData;
 
@@ -57,8 +64,8 @@ public class BlockService : MonoBehaviour {
         } else {
             TileBase tile = Tilemap.GetTile(cellPosition);
             tileData = new() {
-                Health = GetBlockDataFromTile(tile).MaxHealth[0] - 1,
-                MaxHealth = GetBlockDataFromTile(tile).MaxHealth[0],
+                Health = GetBlockDataFromTile(tile).MaxHealth[(int) Pickaxe.Material] - 1,
+                MaxHealth = GetBlockDataFromTile(tile).MaxHealth[(int) Pickaxe.Material],
             };
             _tileDatas[cellPosition] = tileData;
         }
