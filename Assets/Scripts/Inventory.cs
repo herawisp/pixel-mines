@@ -1,16 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+public class Inventory : MonoBehaviour {
+
+    public DataService DataService;
+
+    Dictionary<string, int> _data;
+
+    void Start() {
+        _data = DataService.Data.Inventory;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void AdjustItem(string itemName, int amount) {
+        bool hasItem = _data.ContainsKey(itemName);
+        int currentAmount = _data[itemName];
+        _data[itemName] = hasItem ? currentAmount + amount : amount;
     }
 }

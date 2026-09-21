@@ -16,6 +16,14 @@ public class BlockService : MonoBehaviour {
     public Tilemap Tilemap;
     public List<BlockData> BlockDatas;
     public Pickaxe Pickaxe;
+
+    public LightCrystalGenerator LightCrystalGenerator;
+    public LightService LightService;
+
+    public Tilemap MiningIndicatorTilemap;
+    public int MiningDistance = 3;
+    public TileBase CanMineTile;
+    public TileBase CannotMineTile;
     
     Dictionary<Vector3Int, TileData> _tileDatas = new();
     Dictionary<TileBase, BlockData> _cachedBlockDatas = new();
@@ -27,6 +35,7 @@ public class BlockService : MonoBehaviour {
     //================================================================================================//
 
     void Update() {
+        UpdateCursor();
         if (Mouse.current.leftButton.isPressed) {
             _timer += Time.deltaTime;
             Pickaxe.StartSwinging();
@@ -44,6 +53,22 @@ public class BlockService : MonoBehaviour {
     //================================================================================================//
     //================================================================================================//
 
+    void UpdateCursor() {
+        Vector3Int cellPosition = GetCellPositionOnMouse();
+        MiningIndicatorTilemap.ClearAllTiles();
+        if (Tilemap.GetTile(cellPosition) == null) return;
+
+        bool isInDistance = IsBlockInDistance(cellPosition);
+        MiningIndicatorTilemap.SetTile(cellPosition, isInDistance? CanMineTile: CannotMineTile);
+    }
+
+    bool IsBlockInDistance(Vector3Int cellPosition) {
+        Vector3Int playerCellPosition = Tilemap.WorldToCell(Pickaxe.transform.position);
+        if (Mathf.Abs(cellPosition.x - playerCellPosition.x) > MiningDistance) return false;
+        if (Mathf.Abs(cellPosition.y - playerCellPosition.y) > MiningDistance) return false;
+        return true;
+    }
+
     Vector3Int GetCellPositionOnMouse() {
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -54,6 +79,11 @@ public class BlockService : MonoBehaviour {
     void MineBlock() {
         Vector3Int cellPosition = GetCellPositionOnMouse();
         if (Tilemap.GetTile(cellPosition) == null) return;
+
+        if (IsALightCrystal(Tilemap.GetTile(cellPosition))) {
+            MineLightCrystal(cellPosition);
+            return;    
+        }
 
         bool isTileDataExist = _tileDatas.ContainsKey(cellPosition);
         TileData tileData;
@@ -72,6 +102,24 @@ public class BlockService : MonoBehaviour {
 
         if (tileData.Health <= 0) {
             Tilemap.SetTile(cellPosition, null);
+        }
+    }
+
+    bool IsALightCrystal(TileBase tile) {
+        foreach (LightCrystal lightCrystal in LightCrystalGenerator.LightCrystalDatas) {
+            if (tile != lightCrystal.Tile) continue;
+            return true;
+        }
+        return false;
+    }
+
+    void MineLightCrystal(Vector3Int cellPosition) {
+        TileBase tile = Tilemap.GetTile(cellPosition);
+
+        foreach (LightCrystal lightCrystal in LightCrystalGenerator.LightCrystalDatas) {
+            if (lightCrystal.Tile != tile) continue;
+            Tilemap.SetTile(cellPosition, null);
+            LightService.AdjustFuel(lightCrystal.Fuel);
         }
     }
 

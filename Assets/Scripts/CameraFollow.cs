@@ -7,9 +7,9 @@ public class CameraFollow : MonoBehaviour
     public float OffsetY = 1f;
     public Transform Target;
 
-    void Update()
+    void LateUpdate()
     {
-        Vector3 newPosition = new(Target.position.x, Target.position.y, -10f);
-        transform.position = Vector3.Slerp(transform.position, newPosition, FollowSpeed * Time.deltaTime);
+        Vector3 newPosition = new(Target.position.x, Target.position.y + OffsetY, -1f);
+        transform.position = Vector3.Lerp(transform.position, newPosition, FollowSpeed * Time.deltaTime);
     }
 }
