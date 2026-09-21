@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour {
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidBody = GetComponent<Rigidbody2D>();
+        _rigidBody.simulated = false;
     }
 
     void Update() {
@@ -65,6 +67,14 @@ public class Player : MonoBehaviour {
     void OnJump() {
         if (!_isGrounded) return;
         _rigidBody.linearVelocity = new(_rigidBody.linearVelocityX, JumpPower);
+    }
+    
+    //================================================================================================//
+    //================================================================================================//
+
+    public void Initialize(Vector3 position) {
+        _rigidBody.simulated = true;
+        transform.position = position; 
     }
     
     //================================================================================================//

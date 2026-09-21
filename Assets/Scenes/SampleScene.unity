@@ -179,6 +179,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 16fbbf4bd87ea0145afa0928e19c5d78, type: 2}
   - {fileID: 11400000, guid: 70d0f57f2ce7973419bdfef6b9b40660, type: 2}
   - {fileID: 11400000, guid: 346691115a93234418ad39d2a271921b, type: 2}
+  DoorGenerator: {fileID: 0}
 --- !u!1 &241354379
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +394,7 @@ MonoBehaviour:
   Tilemap: {fileID: 909011684}
   BlockDatas:
   - {fileID: 11400000, guid: 97af3b1efae67bf4e970ef8bcc8fc689, type: 2}
+  Pickaxe: {fileID: 8089881684969708924}
 --- !u!4 &598765068
 Transform:
   m_ObjectHideFlags: 0
@@ -487,6 +489,57 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &882264188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 882264190}
+  - component: {fileID: 882264189}
+  m_Layer: 0
+  m_Name: Door Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &882264189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882264188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac284bb3595b8644acbd097e3b0da49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorGenerator
+  MinYEntrance: 5
+  MaxYEntrance: 10
+  MinYExitFromBottom: 5
+  MaxYExitFromBottom: 10
+  EntranceTile: {fileID: 11400000, guid: 0f763c2fb5e5709478cb248369039787, type: 2}
+  PlatformTile: {fileID: 11400000, guid: 0f763c2fb5e5709478cb248369039787, type: 2}
+  ExitTile: {fileID: 11400000, guid: be0d7d0f382c55e49bb8bc1edd58e0bb, type: 2}
+--- !u!4 &882264190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882264188}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.30993, y: 0.01431, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1365,6 +1418,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 8
+  Pickaxe: {fileID: 8089881684969708924}
 --- !u!95 &1826020237
 Animator:
   serializedVersion: 7
@@ -1478,6 +1532,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1826020235}
     m_Modifications:
+    - target: {fileID: 632421021300654125, guid: dc0f4809d91178842bfb5292eb4810e1, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2919397544236068570, guid: dc0f4809d91178842bfb5292eb4810e1, type: 3}
       propertyPath: m_Name
       value: Pickaxe
@@ -1532,6 +1590,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7654538538288357326, guid: dc0f4809d91178842bfb5292eb4810e1, type: 3}
   m_PrefabInstance: {fileID: 641083050860566814}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8089881684969708924 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5744753340206741085, guid: dc0f4809d91178842bfb5292eb4810e1, type: 3}
+  m_PrefabInstance: {fileID: 641083050860566814}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b9f4dd0f6472f44a7dc81e4cc4e486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pickaxe
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1542,3 +1611,4 @@ SceneRoots:
   - {fileID: 241354381}
   - {fileID: 1826020235}
   - {fileID: 598765068}
+  - {fileID: 882264190}

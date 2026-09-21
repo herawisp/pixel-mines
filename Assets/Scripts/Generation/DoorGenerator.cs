@@ -13,30 +13,50 @@ public class DoorGenerator : MonoBehaviour
     public TileBase PlatformTile;
     public TileBase ExitTile;
 
-    public Vector3Int GenerateEntrance(
+    Vector3Int GenerateDoor(
         int width,
-        int height,
+        int minYPos,
+        int maxYPos,
         Tilemap tilemap,
+        TileBase tile,
         System.Random random
     ) {
         int randomXPos = random.Next(5, width - 6);
-        int randomYPos = random.Next(height - MinYEntrance, height - MaxYEntrance);
-        Vector3Int entrancePosition = new(randomXPos, randomYPos);
-        tilemap.SetTile(entrancePosition, EntranceTile);
+        int randomYPos = random.Next(minYPos, maxYPos);
+        Vector3Int position = new(randomXPos, randomYPos);
+        tilemap.SetTile(position, tile);
 
-        for (int x = entrancePosition.x - 2; x <= entrancePosition.x + 2; x++) {
-            for (int y = entrancePosition.y - 2; y <= entrancePosition.y + 2; y++) {
+        for (int x = position.x - 2; x <= position.x + 2; x++) {
+            for (int y = position.y - 2; y <= position.y + 2; y++) {
                 Vector3Int cellPosition = new(x, y);
 
-                if (x != entrancePosition.x - 2 && x != entrancePosition.x + 2 && y == entrancePosition.y - 1) {
+                if (x != position.x - 2 && x != position.x + 2 && y == position.y - 1) {
                     tilemap.SetTile(cellPosition, PlatformTile);
-                } else if (x != entrancePosition.x && y != entrancePosition.y) {
+                } else if (x != position.x || y != position.y) {
                     tilemap.SetTile(cellPosition, null);
                 }
             }
         }
 
-        return entrancePosition;
+        return position;
     }
 
+    public (Vector3Int, Vector3Int) GenerateDoors(
+        int width,
+        int height,
+        Tilemap tilemap,
+        System.Random random
+    ) {
+        Vector3Int entrancePosition = GenerateDoor(
+            width, 
+            height - MaxYEntrance, height - MinYEntrance, 
+            tilemap, EntranceTile, random
+        );
+        Vector3Int exitPosition = GenerateDoor(
+            width, 
+            MinYExitFromBottom, MaxYExitFromBottom, 
+            tilemap, ExitTile, random
+        );
+        return (entrancePosition, exitPosition);
+    }
 }

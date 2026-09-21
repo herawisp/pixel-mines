@@ -20,6 +20,10 @@ public class MapGenerator : MonoBehaviour {
     public List<OreVeinGenData> OreVeinGenDatas;
     public DoorGenerator DoorGenerator;
 
+    [Header("Cave Information")]
+    public Vector3Int EntrancePosition {get; private set;}
+    public Vector3Int ExitPosition {get; private set;}
+
     readonly CellularAutomata _cellularAutomata = new();
     readonly PerlinNoiseMap _perlinNoiseMap = new();
     readonly OreVeinGenerator _oreVeinGenerator = new();
@@ -27,14 +31,14 @@ public class MapGenerator : MonoBehaviour {
     //================================================================================================//
     //================================================================================================//
 
-    void Start() {
+    public void GenerateCave() {
         Seed = UnityEngine.Random.Range(0, 1000);
         System.Random random = new(Seed);
 
         _cellularAutomata.GenerateMap(Width, Height, random, Tilemap, BaseCaveData);
         _perlinNoiseMap.GenerateMaps(Width, Height, random, Tilemap, RockGenerationDatas);
         _oreVeinGenerator.GenerateOreVeins(Width, Height, random, Tilemap, OreVeinGenDatas);
-        DoorGenerator.GenerateEntrance(Width, Height, Tilemap, random);
+        (EntrancePosition, ExitPosition) = DoorGenerator.GenerateDoors(Width, Height, Tilemap, random);
     }
     
     //================================================================================================//
